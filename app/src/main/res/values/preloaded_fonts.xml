@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/abril_fatface</item>
+        <item>@font/agdasima</item>
+        <item>@font/aldrich</item>
+        <item>@font/alkalami</item>
+        <item>@font/faster_one</item>
+        <item>@font/poller_one</item>
+        <item>@font/zilla_slab_highlight</item>
+    </array>
+</resources>

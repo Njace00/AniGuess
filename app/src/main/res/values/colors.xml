@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+
+    <color name="c1">#7700cc</color>
+    <color name="c2">#ae008d</color>
+    <color name="button">#af0000</color>
+
+
+    <color name="s1">#4E5180</color>
+    <color name="s2">#431C53</color>
+    <color name="s3">#9F2B68</color>
+    <color name="s4">#6B2D5F</color>
+    <color name="s5">#380226</color>
+    <color name="s6">#942C2C</color>
+
+
+</resources>

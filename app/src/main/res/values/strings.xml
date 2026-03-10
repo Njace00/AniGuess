@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AniGuess</string>
+
+    <!-- START SCREEN -->
+    <string name="title">AniGuess</string>
+    <string name="Stitle">4 Pics 1 Anime</string>
+    <string name="PlayButton">Play Now</string>
+    <string name="trademark">Since 2026 * Anime Edition</string>
+    <!--============================================-->
+
+    <!-- MAIN MENU SCREEN -->
+    <string name="difficulty">Difficulty:</string>
+        <!-- DIFFICULTIES -->
+    <string name="easy">EASY</string>
+    <string name="med">MEDIUM</string>
+    <string name="hard">HARD</string>
+
+    <!-- BOTTOM BAR -->
+    <string name="home">HOME</string>
+    <string name="Gallery">GALLERY</string>
+    <string name="setting">SETTING</string>A
+
+    <!--============================================-->
+
+
+</resources>
