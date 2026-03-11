@@ -32,96 +32,144 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!-- CENTER IMAGE -->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="40dp"
+
+    <TextView
+        android:id="@+id/difficultytxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/easy"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20sp"/>
+
+
+    <!-- IMAGE TOP ROW -->
+    <ImageView
+        android:id="@+id/pic1"
+        android:layout_width="0sp"
+        android:layout_height="120dp"
+        android:layout_margin="20sp"
+        app:layout_constraintTop_toBottomOf="@id/difficultytxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pic2"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <ImageView
+        android:id="@+id/pic2"
+        android:layout_width="0sp"
+        android:layout_height="120dp"
+        android:layout_margin="20sp"
+        app:layout_constraintTop_toBottomOf="@id/difficultytxt"
+        app:layout_constraintStart_toEndOf="@id/pic1"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <!-- IMAGE BOTTOM ROW -->
+    <ImageView
+        android:id="@+id/pic3"
+        android:layout_width="0sp"
+        android:layout_height="120dp"
+        android:layout_margin="20sp"
+        app:layout_constraintTop_toBottomOf="@id/pic1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pic4"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <ImageView
+        android:id="@+id/pic4"
+        android:layout_width="0sp"
+        android:layout_height="120dp"
+        android:layout_margin="20sp"
+        app:layout_constraintTop_toBottomOf="@id/pic2"
+        app:layout_constraintStart_toEndOf="@id/pic3"
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
 
-    <!-- PLAY BUTTON -->
+    <!-- CHOICES -->
+    <View
+        android:id="@+id/hr"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/pic4"/>
+
+    <!-- TOP ROW CHOICES -->
     <Button
-        android:id="@+id/playbtn"
-        android:layout_width="220dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:id="@+id/choice1"
+        android:layout_width="0sp"
+        android:layout_height="90sp"
+        android:layout_margin="30sp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
-        android:text="@string/PlayButton"
+        android:text="Sample 1"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/hr"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/choice2"/>
 
-
-    <!-- DIFFICULTY TEXT -->
-    <TextView
-        android:id="@+id/difftxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+    <Button
+        android:id="@+id/choice2"
+        android:layout_width="0sp"
+        android:layout_height="90sp"
+        android:layout_margin="30sp"
+        android:backgroundTint="#AD00FF"
         android:fontFamily="@font/aldrich"
-        android:text="@string/difficulty"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/playbtn"
+        android:text="Sample 2"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/hr"
+        app:layout_constraintStart_toEndOf="@id/choice1"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- BOTTOM ROW CHOICES -->
+
+    <Button
+        android:id="@+id/choice3"
+        android:layout_width="0sp"
+        android:layout_height="90sp"
+        android:layout_margin="30sp"
+        android:backgroundTint="#AD00FF"
+        android:fontFamily="@font/aldrich"
+        android:text="Sample 3"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/choice1"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"/>
-
-
-    <!-- DIFFICULTY BUTTONS -->
-    <Button
-        android:id="@+id/easybtn"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:text="@string/easy"
-        android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/aldrich"
-        app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/medbtn"
-        android:layout_margin="10dp"/>
+        app:layout_constraintEnd_toStartOf="@id/choice4"/>
 
     <Button
-        android:id="@+id/medbtn"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:text="@string/med"
+        android:id="@+id/choice4"
+        android:layout_width="0sp"
+        android:layout_height="90sp"
+        android:layout_margin="30sp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
-        app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/easybtn"
-        app:layout_constraintEnd_toStartOf="@id/hardbtn"
-        android:layout_margin="10dp"/>
-
-    <Button
-        android:id="@+id/hardbtn"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:text="@string/hard"
-        android:backgroundTint="#AD00FF"
+        android:text="Sample 4"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/aldrich"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/medbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp"/>
+        app:layout_constraintTop_toBottomOf="@id/choice2"
+        app:layout_constraintStart_toEndOf="@id/choice3"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
-    <!-- BOTTOM BAR -->
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/botbar"
         android:layout_width="0dp"
@@ -138,8 +186,8 @@
             android:layout_marginStart="40sp"
             android:backgroundTint="#AD00FF"
             android:text="X"
-            android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/statsbtn"
             app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +199,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:text="HOME"
+            android:textColor="#FFFFFF"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/homebtn"
             app:layout_constraintStart_toStartOf="@id/homebtn"
@@ -178,6 +227,7 @@
             android:fontFamily="@font/aldrich"
             android:text="GALLERY"
             android:textSize="10sp"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="@id/statsbtn"
             app:layout_constraintStart_toStartOf="@id/statsbtn"
             app:layout_constraintTop_toBottomOf="@id/homebtn" />
@@ -204,10 +254,13 @@
             android:fontFamily="@font/aldrich"
             android:text="SETTING"
             android:textSize="10sp"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="@id/settingbtn"
             app:layout_constraintStart_toStartOf="@id/settingbtn"
             app:layout_constraintTop_toBottomOf="@id/homebtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

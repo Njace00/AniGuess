@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AniGuess">
+
+        <activity android:name=".MainMenuActivity"/>
+        <activity android:name=".EasyModeActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
