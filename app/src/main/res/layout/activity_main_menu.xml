@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s5"
+    android:background="#3A2C2C"
     tools:context=".MainActivity">
 
     <!-- TOP BAR -->
@@ -14,8 +13,7 @@
         android:id="@+id/topbar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#A0A0A0"
-        android:backgroundTint="#2F082F"
+        android:background="#5A3E36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +24,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:text="@string/title"
-            android:textColor="#AD00FF"
+            android:textColor="#F4D35E"
             android:textSize="25sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:shadowColor="#2A1E1E"
+            android:shadowRadius="6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +43,10 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/topbar"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/main"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
 
 
     <!-- PLAY BUTTON -->
@@ -53,14 +55,14 @@
         android:layout_width="220dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
         android:text="@string/PlayButton"
+        android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
 
     <!-- DIFFICULTY TEXT -->
@@ -68,13 +70,14 @@
         android:id="@+id/difftxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/aldrich"
         android:text="@string/difficulty"
+        android:textColor="#FFF8E7"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/playbtn"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"/>
+        app:layout_constraintTop_toBottomOf="@id/playbtn" />
 
 
     <!-- DIFFICULTY BUTTONS -->
@@ -82,43 +85,87 @@
         android:id="@+id/easybtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/easy"
-        android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
+        android:text="@string/easy"
+        android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/medbtn"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
 
     <Button
         android:id="@+id/medbtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/med"
-        android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
+        android:text="@string/med"
+        android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/easybtn"
         app:layout_constraintEnd_toStartOf="@id/hardbtn"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toEndOf="@id/easybtn"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
 
     <Button
         android:id="@+id/hardbtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/hard"
-        android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
+        android:text="@string/hard"
+        android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/medbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toEndOf="@id/medbtn"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="#5A3E36"
+        app:layout_constraintEnd_toStartOf="@id/placeholder2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medbtn"
+        app:layout_constraintBottom_toTopOf="@id/botbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="sample"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeholder2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="#5A3E36"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/medbtn"
+        app:layout_constraintBottom_toTopOf="@id/botbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="sample"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!-- BOTTOM BAR -->
@@ -126,19 +173,19 @@
         android:id="@+id/botbar"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:background="#2F082F"
+        android:background="#5A3E36"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/homebtn"
-            android:layout_width="0sp"
-            android:layout_height="50sp"
-            android:layout_marginStart="40sp"
-            android:backgroundTint="#AD00FF"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#EE964B"
             android:text="X"
-            android:textColor="#FFFFFF"
+            android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/statsbtn"
@@ -151,6 +198,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:text="HOME"
+            android:textColor="#FFF8E7"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/homebtn"
             app:layout_constraintStart_toStartOf="@id/homebtn"
@@ -161,10 +209,10 @@
             android:id="@+id/statsbtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40sp"
-            android:backgroundTint="#AD00FF"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#EE964B"
             android:text="X"
-            android:textColor="#FFFFFF"
+            android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/settingbtn"
@@ -177,20 +225,21 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:text="GALLERY"
+            android:textColor="#FFF8E7"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/statsbtn"
             app:layout_constraintStart_toStartOf="@id/statsbtn"
-            app:layout_constraintTop_toBottomOf="@id/homebtn" />
+            app:layout_constraintTop_toBottomOf="@id/statsbtn" />
 
         <Button
             android:id="@+id/settingbtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40sp"
-            android:layout_marginEnd="40sp"
-            android:backgroundTint="#AD00FF"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="#EE964B"
             android:text="X"
-            android:textColor="#FFFFFF"
+            android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,10 +252,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:text="SETTING"
+            android:textColor="#FFF8E7"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/settingbtn"
             app:layout_constraintStart_toStartOf="@id/settingbtn"
-            app:layout_constraintTop_toBottomOf="@id/homebtn" />
+            app:layout_constraintTop_toBottomOf="@id/settingbtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
