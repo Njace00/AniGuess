@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s5"
+    android:background="#260B1C"
     tools:context=".MainActivity">
 
     <!-- GUIDELINES -->
@@ -16,21 +15,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85"/>
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topGuide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20"/>
+        app:layout_constraintGuide_percent="0.20" />
 
 
     <!-- TITLE -->
@@ -44,10 +43,10 @@
         android:text="@string/title"
         android:textColor="#AD00FF"
         android:textSize="50sp"
-        app:layout_constraintTop_toBottomOf="@id/topGuide"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topGuide" />
 
 
     <!-- SUBTITLE -->
@@ -57,14 +56,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="#000000"
-        android:fontFamily="@font/zilla_slab_highlight"
+        android:fontFamily="@font/racing_sans_one"
+        android:shadowColor="#E7E7E7"
         android:text="@string/Stitle"
         android:textColor="#FF0000"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/AniGuess"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/AniGuess" />
 
 
     <!-- IMAGE -->
@@ -74,10 +73,10 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/pics"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@tools:sample/avatars"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pics"
+        android:src="@drawable/main" />
 
 
     <!-- PLAY BUTTON -->
@@ -88,13 +87,13 @@
         android:layout_height="60dp"
         android:layout_marginBottom="60dp"
         android:backgroundTint="#AD00FF"
+        android:fontFamily="@font/aldrich"
         android:text="@string/PlayButton"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/aldrich"
         app:cornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="@id/leftGuide"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="@id/leftGuide" />
 
 
     <!-- TRADEMARK -->
@@ -103,13 +102,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/aldrich"
         android:text="@string/trademark"
         android:textColor="#FFFFFF"
         android:textSize="11sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/playbtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/playbtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s5"
+    android:background="#2A0D1F"
     tools:context=".MainActivity">
 
     <!-- TOP BAR -->
@@ -41,10 +40,10 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/topbar"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/main"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
 
 
     <!-- PLAY BUTTON -->
@@ -54,13 +53,13 @@
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
         android:text="@string/PlayButton"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
 
     <!-- DIFFICULTY TEXT -->
@@ -68,13 +67,13 @@
         android:id="@+id/difftxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/aldrich"
         android:text="@string/difficulty"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/playbtn"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"/>
+        app:layout_constraintTop_toBottomOf="@id/playbtn" />
 
 
     <!-- DIFFICULTY BUTTONS -->
@@ -82,43 +81,87 @@
         android:id="@+id/easybtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/easy"
+        android:layout_margin="10dp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
+        android:text="@string/easy"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/medbtn"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
 
     <Button
         android:id="@+id/medbtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/med"
+        android:layout_margin="10dp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
+        android:text="@string/med"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/easybtn"
         app:layout_constraintEnd_toStartOf="@id/hardbtn"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toEndOf="@id/easybtn"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
 
     <Button
         android:id="@+id/hardbtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/hard"
+        android:layout_margin="10dp"
         android:backgroundTint="#AD00FF"
-        android:textColor="#FFFFFF"
         android:fontFamily="@font/aldrich"
+        android:text="@string/hard"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/difftxt"
-        app:layout_constraintStart_toEndOf="@id/medbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toEndOf="@id/medbtn"
+        app:layout_constraintTop_toBottomOf="@id/difftxt" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="#430443"
+        app:layout_constraintEnd_toStartOf="@id/placeholder2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medbtn"
+        app:layout_constraintBottom_toTopOf="@id/botbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="sample"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeholder2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="#430443"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/medbtn"
+        app:layout_constraintBottom_toTopOf="@id/botbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="sample"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!-- BOTTOM BAR -->
