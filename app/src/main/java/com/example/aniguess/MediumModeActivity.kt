@@ -6,13 +6,14 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-class EasyModeActivity : AppCompatActivity() {
+class MediumModeActivity : AppCompatActivity() {
 
     data class Level(
         val name: String,
@@ -20,18 +21,27 @@ class EasyModeActivity : AppCompatActivity() {
         val choices: List<String>
     )
 
-    private lateinit var levels: MutableList<Level>
+    private lateinit var allLevels: List<Level>
+    private lateinit var shuffledLevels: MutableList<Level>
     private var currentLevelIndex = 0
+    private var lives = 3
+    private var heartsLost = 0
+    private lateinit var hearts: Array<ImageView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_easy_mode)
+        setContentView(R.layout.activity_medium_mode)
+
+        hearts = arrayOf(
+            findViewById(R.id.heart1),
+            findViewById(R.id.heart2),
+            findViewById(R.id.heart3)
+        )
 
         initLevels()
-        levels.shuffle() // Randomize the order of levels
+        shuffledLevels = allLevels.shuffled().toMutableList()
         loadLevel()
-        
-        // Setup bottom bar buttons
+
         findViewById<Button>(R.id.homebtn).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
@@ -40,35 +50,33 @@ class EasyModeActivity : AppCompatActivity() {
     }
 
     private fun initLevels() {
-        levels = mutableListOf(
-            Level("Pokemon", listOf(R.drawable.pokemon1, R.drawable.pokemon2, R.drawable.pokemon3, R.drawable.pokemon4), listOf("Pokemon", "Naruto", "One Piece", "Dragon Ball")),
-            Level("One Piece", listOf(R.drawable.onepiece1, R.drawable.onepiece2, R.drawable.onepiece3, R.drawable.onepiece4), listOf("Naruto", "Bleach", "One Piece", "Dragon Ball")),
-            Level("Naruto", listOf(R.drawable.naruto1, R.drawable.naruto2, R.drawable.naruto3, R.drawable.naruto4), listOf("Dragon Ball", "Naruto", "My Hero Academia", "Attack on Titan")),
-            Level("Dragon Ball", listOf(R.drawable.dragonball1, R.drawable.dragonball2, R.drawable.dragonball3, R.drawable.dragonball4), listOf("Bleach", "One Piece", "Naruto", "Dragon Ball"))
+        allLevels = listOf(
+            Level("Fullmetal Alchemist", listOf(R.drawable.fullmetal1, R.drawable.fullmetal2, R.drawable.fullmetal3, R.drawable.fullmetal4), listOf("Fullmetal Alchemist", "Bleach", "Attack on Titan", "Hunter x Hunter")),
+            Level("Bleach", listOf(R.drawable.bleach1, R.drawable.bleach2, R.drawable.bleach3, R.drawable.bleach4), listOf("Naruto", "Death Note", "Bleach", "Jujutsu Kaisen")),
+            Level("Attack on Titan", listOf(R.drawable.attackontitan1, R.drawable.attackontitan2, R.drawable.attackontitan3, R.drawable.attackontitan4), listOf("Attack on Titan", "Demon Slayer", "My Hero Academia", "Tokyo Ghoul")),
+            Level("Hunter x Hunter", listOf(R.drawable.hunterxhunter1, R.drawable.hunterxhunter2, R.drawable.hunterxhunter3, R.drawable.hunterxhunter4), listOf("One Piece", "Hunter x Hunter", "Fairy Tail", "Black Clover"))
         )
     }
 
     private fun loadLevel() {
-        if (currentLevelIndex >= levels.size) {
+        if (currentLevelIndex >= shuffledLevels.size) {
             showCompletionDialog()
             return
         }
 
-        val level = levels[currentLevelIndex]
-        
-        // Randomize image positions and choices for better gameplay
-        val shuffledImages = level.images.shuffled()
-        val shuffledChoices = level.choices.shuffled()
+        val level = shuffledLevels[currentLevelIndex]
+        val displayImages = level.images.shuffled()
+        val displayChoices = level.choices.shuffled()
 
-        updateImages(shuffledImages[0], shuffledImages[1], shuffledImages[2], shuffledImages[3])
-        setButtonText(shuffledChoices[0], shuffledChoices[1], shuffledChoices[2], shuffledChoices[3])
+        updateImages(displayImages[0], displayImages[1], displayImages[2], displayImages[3])
+        setButtonText(displayChoices[0], displayChoices[1], displayChoices[2], displayChoices[3])
 
-        val wrongClickListener = { showWrongAnswerDialog() }
+        val wrongClickListener = { handleWrongAnswer() }
 
-        findViewById<Button>(R.id.choice1).setOnClickListener { if (shuffledChoices[0] == level.name) handleCorrectAnswer() else wrongClickListener() }
-        findViewById<Button>(R.id.choice2).setOnClickListener { if (shuffledChoices[1] == level.name) handleCorrectAnswer() else wrongClickListener() }
-        findViewById<Button>(R.id.choice3).setOnClickListener { if (shuffledChoices[2] == level.name) handleCorrectAnswer() else wrongClickListener() }
-        findViewById<Button>(R.id.choice4).setOnClickListener { if (shuffledChoices[3] == level.name) handleCorrectAnswer() else wrongClickListener() }
+        findViewById<Button>(R.id.choice1).setOnClickListener { if (displayChoices[0] == level.name) handleCorrectAnswer() else wrongClickListener() }
+        findViewById<Button>(R.id.choice2).setOnClickListener { if (displayChoices[1] == level.name) handleCorrectAnswer() else wrongClickListener() }
+        findViewById<Button>(R.id.choice3).setOnClickListener { if (displayChoices[2] == level.name) handleCorrectAnswer() else wrongClickListener() }
+        findViewById<Button>(R.id.choice4).setOnClickListener { if (displayChoices[3] == level.name) handleCorrectAnswer() else wrongClickListener() }
     }
 
     private fun handleCorrectAnswer() {
@@ -107,7 +115,22 @@ class EasyModeActivity : AppCompatActivity() {
         }, 1500)
     }
 
-    private fun showWrongAnswerDialog() {
+    private fun handleWrongAnswer() {
+        if (heartsLost < 3) {
+            hearts[heartsLost].visibility = View.INVISIBLE
+            heartsLost++
+            lives--
+            showWrongAnswerDialog(lives)
+        }
+
+        if (lives <= 0) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                showRetryDialog()
+            }, 1500)
+        }
+    }
+
+    private fun showWrongAnswerDialog(livesLeft: Int) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_wrong, null)
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
@@ -120,20 +143,42 @@ class EasyModeActivity : AppCompatActivity() {
         val window = dialog.window
         val wlp = window?.attributes
         wlp?.gravity = Gravity.BOTTOM
-        wlp?.y = 300 // Offset from bottom
+        wlp?.y = 300
         window?.attributes = wlp
 
-        // Update the text for Easy Mode
-        dialogView.findViewById<TextView>(R.id.wrongText).text = "Wrong! Try again."
+        dialogView.findViewById<TextView>(R.id.wrongText).text = "Wrong Answer! Lives left: $livesLeft"
 
         dialog.show()
 
-        // Automatically dismiss after 1.5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             if (dialog.isShowing) {
                 dialog.dismiss()
             }
         }, 1500)
+    }
+
+    private fun showRetryDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_retry, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+
+        val dialog = builder.create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogView.findViewById<Button>(R.id.btnRetry).setOnClickListener {
+            dialog.dismiss()
+            recreate()
+        }
+
+        dialogView.findViewById<Button>(R.id.btnMainMenu).setOnClickListener {
+            val intent = Intent(this, MainMenuActivity::class.java)
+            startActivity(intent)
+            finish()
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun showCompletionDialog() {
@@ -145,8 +190,12 @@ class EasyModeActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        dialogView.findViewById<Button>(R.id.btnContinue).setOnClickListener {
-            val intent = Intent(this, MediumModeActivity::class.java)
+        dialogView.findViewById<TextView>(R.id.dialogMessage).text = "You've mastered Medium Mode! Ready for the ultimate challenge?"
+        val btnContinue = dialogView.findViewById<Button>(R.id.btnContinue)
+        btnContinue.text = "Continue to Hard"
+        
+        btnContinue.setOnClickListener {
+            val intent = Intent(this, HardModeActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()

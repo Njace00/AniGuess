@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="#3A2C2C">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVEL COMPLETE!"
+            android:textColor="#F4D35E"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/aldrich"
+            android:letterSpacing="0.1" />
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="You've mastered Easy Mode! What would you like to do next?"
+            android:textColor="#FFF8E7"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:fontFamily="@font/aldrich" />
+
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#EE964B"
+            android:text="Continue to Medium"
+            android:textColor="#FFF8E7"
+            android:fontFamily="@font/aldrich"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/btnMainMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#5A3E36"
+            android:text="Back to Main Menu"
+            android:textColor="#FFF8E7"
+            android:fontFamily="@font/aldrich"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3A2C2C"
-    tools:context=".MainActivity">
+    tools:context=".MediumModeActivity">
 
     <!-- TOP BAR -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +61,8 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="20dp"
-        android:src="@drawable/pic1"
+        android:src="@drawable/fullmetal1"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/difficultytxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/pic2"/>
@@ -71,7 +72,8 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="20dp"
-        android:src="@drawable/pic2"
+        android:src="@drawable/fullmetal2"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/difficultytxt"
         app:layout_constraintStart_toEndOf="@id/pic1"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -85,7 +87,8 @@
         android:layout_height="120dp"
         android:layout_margin="20dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/pic3"
+        android:src="@drawable/fullmetal3"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toStartOf="@id/pic4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pic1" />
@@ -95,7 +98,8 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="20dp"
-        android:src="@drawable/pic4"
+        android:src="@drawable/fullmetal4"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/pic2"
         app:layout_constraintStart_toEndOf="@id/pic3"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -119,10 +123,10 @@
     <ImageView
         android:id="@+id/heart1"
         android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/pic2"
+        android:layout_height="40dp"
+        android:src="@drawable/heart1"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="35dp"
         app:layout_constraintTop_toBottomOf="@id/hr"
         app:layout_constraintStart_toStartOf="@id/pic2"
         />
@@ -130,8 +134,8 @@
     <ImageView
         android:id="@+id/heart2"
         android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/pic2"
+        android:layout_height="40dp"
+        android:src="@drawable/heart1"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@id/hr"
         app:layout_constraintStart_toEndOf="@id/heart1"
@@ -139,9 +143,9 @@
 
     <ImageView
         android:id="@+id/heart3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/pic2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/heart1"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@id/hr"
         app:layout_constraintStart_toEndOf="@id/heart2"
@@ -156,7 +160,7 @@
         android:layout_margin="30dp"
         android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
-        android:text="Sample 1"
+        android:text="Fullmetal Alchemist"
         android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@id/heart1"
@@ -170,7 +174,7 @@
         android:layout_margin="30dp"
         android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
-        android:text="Sample 2"
+        android:text="Bleach"
         android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@id/heart1"
@@ -184,7 +188,7 @@
         android:layout_margin="30dp"
         android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
-        android:text="Sample 3"
+        android:text="Attack on Titan"
         android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@id/choice1"
@@ -198,7 +202,7 @@
         android:layout_margin="30dp"
         android:backgroundTint="#EE964B"
         android:fontFamily="@font/aldrich"
-        android:text="Sample 4"
+        android:text="Hunter x Hunter"
         android:textColor="#FFF8E7"
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@id/choice2"

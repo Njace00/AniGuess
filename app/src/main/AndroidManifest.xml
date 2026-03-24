@@ -14,6 +14,8 @@
 
         <activity android:name=".MainMenuActivity"/>
         <activity android:name=".EasyModeActivity" />
+        <activity android:name=".MediumModeActivity" />
+        <activity android:name=".HardModeActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
