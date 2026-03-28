@@ -1,5 +1,6 @@
 package com.example.aniguess
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -22,6 +23,7 @@ class MainMenuActivity : AppCompatActivity() {
         val easybtn = findViewById<Button>(R.id.easybtn)
         val medbtn = findViewById<Button>(R.id.medbtn)
         val hardbtn = findViewById<Button>(R.id.hardbtn)
+        val statsbtn = findViewById<Button>(R.id.statsbtn)
 
         // Animation for Play Now button
         val pulseAnim = AnimationUtils.loadAnimation(this, android.R.anim.fade_in).apply {
@@ -31,7 +33,7 @@ class MainMenuActivity : AppCompatActivity() {
 
         // Colors
         val normalColor = Color.parseColor("#EE964B")
-        val glowColor = Color.parseColor("#FFD166") // Brighter, glowing orange/yellow
+        val glowColor = Color.parseColor("#FFD166") 
 
         // PLAY NOW CLICK LISTENER
         playbtn.setOnClickListener {
@@ -54,7 +56,7 @@ class MainMenuActivity : AppCompatActivity() {
             playbtn.startAnimation(pulseAnim)
             resetButtons(normalColor, easybtn, medbtn, hardbtn)
             easybtn.backgroundTintList = ColorStateList.valueOf(glowColor)
-            easybtn.elevation = 20f // Add a bit of shadow depth to simulate lift/glow
+            easybtn.elevation = 20f
         }
 
         medbtn.setOnClickListener {
@@ -72,12 +74,37 @@ class MainMenuActivity : AppCompatActivity() {
             hardbtn.backgroundTintList = ColorStateList.valueOf(glowColor)
             hardbtn.elevation = 20f
         }
+
+        // GALLERY BUTTON CLICK LISTENER
+        statsbtn.setOnClickListener {
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivity(intent)
+        }
+        
+        displayRecords()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        displayRecords()
+    }
+
+    private fun displayRecords() {
+        val sharedPref = getSharedPreferences("GameRecords", Context.MODE_PRIVATE)
+        
+        val easyBest = sharedPref.getLong("EasyBestTime", -1L)
+        val medBest = sharedPref.getLong("MediumBestTime", -1L)
+        val hardBest = sharedPref.getLong("HardBestTime", -1L)
+
+        findViewById<TextView>(R.id.easyRecord).text = if (easyBest == -1L) "Easy Mode: --" else "Easy Mode: ${easyBest}s"
+        findViewById<TextView>(R.id.medRecord).text = if (medBest == -1L) "Medium Mode: --" else "Medium Mode: ${medBest}s"
+        findViewById<TextView>(R.id.hardRecord).text = if (hardBest == -1L) "Hard Mode: --" else "Hard Mode: ${hardBest}s"
     }
 
     private fun resetButtons(normalColor: Int, vararg buttons: Button) {
         for (button in buttons) {
             button.backgroundTintList = ColorStateList.valueOf(normalColor)
-            button.elevation = 4f // Reset to standard elevation
+            button.elevation = 4f
         }
     }
 }

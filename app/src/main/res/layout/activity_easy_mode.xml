@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3A2C2C"
-    tools:context=".MainActivity">
+    tools:context=".EasyModeActivity">
 
     <!-- TOP BAR -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +196,9 @@
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
             android:backgroundTint="#EE964B"
-            android:text="X"
+            android:drawableTop="@drawable/home"
+            android:paddingTop="8dp"
+            android:text=""
             android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -221,7 +223,9 @@
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
             android:backgroundTint="#EE964B"
-            android:text="X"
+            android:drawableTop="@drawable/gallery"
+            android:paddingTop="8dp"
+            android:text=""
             android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintStart_toEndOf="@id/homebtn"
@@ -247,7 +251,9 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:backgroundTint="#EE964B"
-            android:text="X"
+            android:drawableTop="@drawable/setting"
+            android:paddingTop="8dp"
+            android:text=""
             android:textColor="#FFF8E7"
             app:cornerRadius="10dp"
             app:layout_constraintStart_toEndOf="@id/statsbtn"

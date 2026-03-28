@@ -1,5 +1,6 @@
 package com.example.aniguess
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -28,6 +29,7 @@ class HardModeActivity : AppCompatActivity() {
     private var timeLeftInMillis: Long = 20000 // 20 seconds
     private val totalTimeInMillis: Long = 20000
     private lateinit var timerBar: View
+    private var startTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class HardModeActivity : AppCompatActivity() {
 
         initLevels()
         shuffledLevels = allLevels.shuffled().toMutableList()
+        startTime = System.currentTimeMillis()
         loadLevel()
 
         findViewById<Button>(R.id.homebtn).setOnClickListener {
@@ -59,6 +62,7 @@ class HardModeActivity : AppCompatActivity() {
     private fun loadLevel() {
         if (currentLevelIndex >= shuffledLevels.size) {
             stopTimer()
+            saveTimeRecord()
             showFinalCompletionDialog()
             return
         }
@@ -139,6 +143,21 @@ class HardModeActivity : AppCompatActivity() {
                 }
             }.start()
             showWrongAnswerDialog()
+        }
+    }
+
+    private fun saveTimeRecord() {
+        val endTime = System.currentTimeMillis()
+        val totalTime = (endTime - startTime) / 1000 // In seconds
+        
+        val sharedPref = getSharedPreferences("GameRecords", Context.MODE_PRIVATE)
+        val bestTime = sharedPref.getLong("HardBestTime", Long.MAX_VALUE)
+        
+        if (totalTime < bestTime) {
+            with(sharedPref.edit()) {
+                putLong("HardBestTime", totalTime)
+                apply()
+            }
         }
     }
 

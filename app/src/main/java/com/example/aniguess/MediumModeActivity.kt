@@ -1,5 +1,6 @@
 package com.example.aniguess
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -27,6 +28,8 @@ class MediumModeActivity : AppCompatActivity() {
     private var lives = 3
     private var heartsLost = 0
     private lateinit var hearts: Array<ImageView>
+    private var startTime: Long = 0
+    private var levelStartTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +43,18 @@ class MediumModeActivity : AppCompatActivity() {
 
         initLevels()
         shuffledLevels = allLevels.shuffled().toMutableList()
+        startTime = System.currentTimeMillis()
         loadLevel()
 
         findViewById<Button>(R.id.homebtn).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        findViewById<Button>(R.id.statsbtn).setOnClickListener {
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -60,10 +69,12 @@ class MediumModeActivity : AppCompatActivity() {
 
     private fun loadLevel() {
         if (currentLevelIndex >= shuffledLevels.size) {
+            saveTimeRecord()
             showCompletionDialog()
             return
         }
 
+        levelStartTime = System.currentTimeMillis()
         val level = shuffledLevels[currentLevelIndex]
         val displayImages = level.images.shuffled()
         val displayChoices = level.choices.shuffled()
@@ -80,13 +91,33 @@ class MediumModeActivity : AppCompatActivity() {
     }
 
     private fun handleCorrectAnswer() {
-        showCorrectAnswerDialog()
+        val levelTime = (System.currentTimeMillis() - levelStartTime) / 1000
+        saveLevelTime(shuffledLevels[currentLevelIndex].name, levelTime)
         
-        // Delay moving to the next level so they can see the dialog
+        showCorrectAnswerDialog()
         Handler(Looper.getMainLooper()).postDelayed({
             currentLevelIndex++
             loadLevel()
         }, 1500)
+    }
+
+    private fun saveLevelTime(animeName: String, time: Long) {
+        val sharedPref = getSharedPreferences("GalleryPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putLong("LevelTime_$animeName", time)
+            apply()
+        }
+    }
+
+    private fun saveTimeRecord() {
+        val endTime = System.currentTimeMillis()
+        val totalTime = (endTime - startTime) / 1000 
+        
+        val sharedPref = getSharedPreferences("GameRecords", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putLong("MediumBestTime", totalTime)
+            apply()
+        }
     }
 
     private fun showCorrectAnswerDialog() {
@@ -94,25 +125,15 @@ class MediumModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(true)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        
-        // Position the dialog at the bottom
         val window = dialog.window
         val wlp = window?.attributes
         wlp?.gravity = Gravity.BOTTOM
-        wlp?.y = 300 // Same offset as wrong dialog
+        wlp?.y = 300
         window?.attributes = wlp
-
         dialog.show()
-
-        // Automatically dismiss after 1.5 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (dialog.isShowing) {
-                dialog.dismiss()
-            }
-        }, 1500)
+        Handler(Looper.getMainLooper()).postDelayed({ if (dialog.isShowing) dialog.dismiss() }, 1500)
     }
 
     private fun handleWrongAnswer() {
@@ -135,26 +156,16 @@ class MediumModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(true)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        
-        // Position the dialog at the bottom
         val window = dialog.window
         val wlp = window?.attributes
         wlp?.gravity = Gravity.BOTTOM
         wlp?.y = 300
         window?.attributes = wlp
-
         dialogView.findViewById<TextView>(R.id.wrongText).text = "Wrong Answer! Lives left: $livesLeft"
-
         dialog.show()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (dialog.isShowing) {
-                dialog.dismiss()
-            }
-        }, 1500)
+        Handler(Looper.getMainLooper()).postDelayed({ if (dialog.isShowing) dialog.dismiss() }, 1500)
     }
 
     private fun showRetryDialog() {
@@ -162,22 +173,18 @@ class MediumModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         dialogView.findViewById<Button>(R.id.btnRetry).setOnClickListener {
             dialog.dismiss()
             recreate()
         }
-
         dialogView.findViewById<Button>(R.id.btnMainMenu).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
@@ -186,28 +193,23 @@ class MediumModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         dialogView.findViewById<TextView>(R.id.dialogMessage).text = "You've mastered Medium Mode! Ready for the ultimate challenge?"
         val btnContinue = dialogView.findViewById<Button>(R.id.btnContinue)
         btnContinue.text = "Continue to Hard"
-        
         btnContinue.setOnClickListener {
             val intent = Intent(this, HardModeActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()
         }
-
         dialogView.findViewById<Button>(R.id.btnMainMenu).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()
         }
-
         dialog.show()
     }
 

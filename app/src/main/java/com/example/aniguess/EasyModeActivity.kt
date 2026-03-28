@@ -1,5 +1,6 @@
 package com.example.aniguess
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
@@ -22,20 +24,27 @@ class EasyModeActivity : AppCompatActivity() {
 
     private lateinit var levels: MutableList<Level>
     private var currentLevelIndex = 0
+    private var startTime: Long = 0
+    private var levelStartTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_easy_mode)
 
         initLevels()
-        levels.shuffle() // Randomize the order of levels
+        levels.shuffle()
+        startTime = System.currentTimeMillis()
         loadLevel()
         
-        // Setup bottom bar buttons
         findViewById<Button>(R.id.homebtn).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        findViewById<Button>(R.id.statsbtn).setOnClickListener {
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -50,13 +59,13 @@ class EasyModeActivity : AppCompatActivity() {
 
     private fun loadLevel() {
         if (currentLevelIndex >= levels.size) {
+            saveTimeRecord()
             showCompletionDialog()
             return
         }
 
+        levelStartTime = System.currentTimeMillis()
         val level = levels[currentLevelIndex]
-        
-        // Randomize image positions and choices for better gameplay
         val shuffledImages = level.images.shuffled()
         val shuffledChoices = level.choices.shuffled()
 
@@ -72,13 +81,33 @@ class EasyModeActivity : AppCompatActivity() {
     }
 
     private fun handleCorrectAnswer() {
-        showCorrectAnswerDialog()
+        val levelTime = (System.currentTimeMillis() - levelStartTime) / 1000
+        saveLevelTime(levels[currentLevelIndex].name, levelTime)
         
-        // Delay moving to the next level so they can see the dialog
+        showCorrectAnswerDialog()
         Handler(Looper.getMainLooper()).postDelayed({
             currentLevelIndex++
             loadLevel()
         }, 1500)
+    }
+
+    private fun saveLevelTime(animeName: String, time: Long) {
+        val sharedPref = getSharedPreferences("GalleryPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putLong("LevelTime_$animeName", time)
+            apply()
+        }
+    }
+
+    private fun saveTimeRecord() {
+        val endTime = System.currentTimeMillis()
+        val totalTime = (endTime - startTime) / 1000
+
+        val sharedPref = getSharedPreferences("GameRecords", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putLong("EasyBestTime", totalTime)
+            apply()
+        }
     }
 
     private fun showCorrectAnswerDialog() {
@@ -86,25 +115,15 @@ class EasyModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(true)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        
-        // Position the dialog at the bottom
         val window = dialog.window
         val wlp = window?.attributes
         wlp?.gravity = Gravity.BOTTOM
-        wlp?.y = 300 // Same offset as wrong dialog
+        wlp?.y = 300
         window?.attributes = wlp
-
         dialog.show()
-
-        // Automatically dismiss after 1.5 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (dialog.isShowing) {
-                dialog.dismiss()
-            }
-        }, 1500)
+        Handler(Looper.getMainLooper()).postDelayed({ if (dialog.isShowing) dialog.dismiss() }, 1500)
     }
 
     private fun showWrongAnswerDialog() {
@@ -112,28 +131,16 @@ class EasyModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(true)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        
-        // Position the dialog at the bottom
         val window = dialog.window
         val wlp = window?.attributes
         wlp?.gravity = Gravity.BOTTOM
-        wlp?.y = 300 // Offset from bottom
+        wlp?.y = 300
         window?.attributes = wlp
-
-        // Update the text for Easy Mode
         dialogView.findViewById<TextView>(R.id.wrongText).text = "Wrong! Try again."
-
         dialog.show()
-
-        // Automatically dismiss after 1.5 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (dialog.isShowing) {
-                dialog.dismiss()
-            }
-        }, 1500)
+        Handler(Looper.getMainLooper()).postDelayed({ if (dialog.isShowing) dialog.dismiss() }, 1500)
     }
 
     private fun showCompletionDialog() {
@@ -141,24 +148,20 @@ class EasyModeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
-
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         dialogView.findViewById<Button>(R.id.btnContinue).setOnClickListener {
             val intent = Intent(this, MediumModeActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()
         }
-
         dialogView.findViewById<Button>(R.id.btnMainMenu).setOnClickListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
             finish()
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
